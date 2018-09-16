@@ -10,6 +10,7 @@ const InputTextField = ({ type, name, placeholder, onChange, required }) => (
       placeholder={placeholder}
       required={required}
       type={type}
+      onChange={onChange}
     />
   </div>
 );

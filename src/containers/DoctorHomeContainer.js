@@ -1,4 +1,4 @@
-import DoctorHome from '../components/doctor-home/DoctorHome';
+import DoctorHome from 'components/doctor-home/DoctorHome';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => ({

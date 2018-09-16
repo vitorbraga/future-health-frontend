@@ -1,10 +1,14 @@
-import PatientLogin from '../components/patient-login/PatientLogin';
+import PatientLogin from 'components/patient-login/PatientLogin';
 import { connect } from 'react-redux';
+import { login } from 'actions';
 
-const mapStateToProps = (state) => ({
-})
+const mapStateToProps = state => ({});
 
-const mapDispatchToProps = (dispatch) => ({
-})
+const mapDispatchToProps = dispatch => ({
+  authenticate: credentials => dispatch(login(credentials, 'patient'))
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(PatientLogin)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PatientLogin);
