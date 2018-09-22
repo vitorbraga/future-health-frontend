@@ -50,4 +50,8 @@ module.exports = {
       utils: path.join(__dirname, './src/utils'),
     },
   },
+  entry: {
+    js: ['babel-polyfill', './src/index.js'],
+    vendor: ['react']
+  },
 };

@@ -1,4 +1,4 @@
-import { UPDATE_TOKEN } from 'constants/authentication';
+import { LOGIN_FAILURE, LOGIN_SUCCESS, UPDATE_TOKEN } from 'constants/authentication';
 
 const authentication = (state = [], { type, payload }) => {
   switch (type) {
@@ -7,9 +7,21 @@ const authentication = (state = [], { type, payload }) => {
         ...state,
         [payload.entity]: {
           ...state[payload.entity],
-          token: payload.token
+          accessToken: payload.accessToken,
+          refreshToken: payload.refreshToken,
         }
       };
+    case LOGIN_SUCCESS:
+      return {
+        ...state,
+        [payload.entity]: {
+          ...state[payload.entity],
+          accessToken: payload.accessToken,
+          refreshToken: payload.refreshToken,
+        }
+      };
+    case LOGIN_FAILURE:
+      console.log('FAILURE');
     default:
       return state;
   }

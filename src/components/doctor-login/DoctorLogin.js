@@ -2,9 +2,10 @@ import './DoctorLogin.scss';
 
 import React, { Component } from 'react';
 
-import InputTextField from 'components/base/InputTextField';
+import Button from '@material-ui/core/Button';
+import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
-import SubmitButton from 'components/base/SubmitButton';
+import TextField from '@material-ui/core/TextField';
 
 class DoctorLogin extends Component {
   static propTypes = {
@@ -31,31 +32,56 @@ class DoctorLogin extends Component {
   };
 
   render() {
+    const { classes } = this.props;
     return (
       <div className="doctor-login">
-        <div className="login-wrapper">
-          <div className="col-lg-12 d-flex flex-column">
-            <InputTextField
-              type="email"
-              name="email"
-              placeholder="Email"
-              onChange={this.handleInputChange}
-            />
+        <div className="header">
+          <Link to="/">
+            <div className="back-wrapper">
+              <span className="lnr lnr-arrow-left mr-10" />
+              Back to home
+            </div>
+          </Link>
+          <div className="registration-wrapper">
+            <span>Not a member?</span>
+            <Link to="/register/doctor">
+              <Button className="register-button" variant="outlined">
+                Register
+              </Button>
+            </Link>
           </div>
-          <div className="col-lg-12 d-flex flex-column">
-            <InputTextField
-              type="password"
-              name="password"
-              placeholder="Password"
-              onChange={this.handleInputChange}
-            />
+        </div>
+        <div className="main">
+          <div className="login-logo">
+            <img src="static/img/logo.png" alt="" />
           </div>
+          <div className="login-form">
+            <div className="col-lg-12 d-flex flex-column field-box">
+              <TextField
+                className="login-text-field"
+                label="EMAIL ADDRESS"
+                name="email"
+                type="email"
+                onChange={this.handleInputChange}
+              />
+            </div>
+            <div className="col-lg-12 d-flex flex-column field-box">
+              <TextField
+                className="login-text-field"
+                label="PASSWORD"
+                name="password"
+                type="password"
+                onChange={this.handleInputChange}
+              />
+            </div>
+            <div className="col-lg-12 d-flex justify-content-center field-box">
+              <Button className="login-button" variant="contained" onClick={() => this.handleLogin()}>
+                Login
+              </Button>
+            </div>
 
-          <div className="col-lg-12 d-flex justify-content-center send-btn">
-            <SubmitButton label="Login" onClick={() => this.handleLogin()} />
+            <div className="alert-msg" />
           </div>
-
-          <div className="alert-msg" />
         </div>
       </div>
     );
