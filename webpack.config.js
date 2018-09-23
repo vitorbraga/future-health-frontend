@@ -1,6 +1,8 @@
 const path = require('path');
 
-const HtmlWebPackPlugin = require("html-webpack-plugin");
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+
+const Dotenv = require('dotenv-webpack');
 
 const htmlWebpackPlugin = new HtmlWebPackPlugin({
   template: './static/index.html',
@@ -16,23 +18,32 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader"
+          loader: 'babel-loader'
         }
       },
       {
         test: /\.(s*)css$/,
-        use: ["style-loader", "css-loader", "sass-loader"]
-      },
+        use: ['style-loader', 'css-loader', 'sass-loader']
+      }
     ]
   },
-  plugins: [htmlWebpackPlugin],
+  plugins: [htmlWebpackPlugin, new Dotenv()],
   devServer: {
     port: 3000,
-    historyApiFallback: true,
+    historyApiFallback: true
   },
   resolve: {
     modules: ['node_modules', projectDir],
-    extensions: ['.webpack.js', '.web.js', '.js', '.jsx', '.css', '.scss', '.css.scss', 'config.js'],
+    extensions: [
+      '.webpack.js',
+      '.web.js',
+      '.js',
+      '.jsx',
+      '.css',
+      '.scss',
+      '.css.scss',
+      'config.js'
+    ],
     alias: {
       actions: path.join(__dirname, './src/actions'),
       components: path.join(__dirname, './src/components'),
@@ -47,11 +58,11 @@ module.exports = {
       selectors: path.join(__dirname, './src/selectors'),
       services: path.join(__dirname, './src/services'),
       style: path.join(__dirname, './style'),
-      utils: path.join(__dirname, './src/utils'),
-    },
+      utils: path.join(__dirname, './src/utils')
+    }
   },
   entry: {
     js: ['babel-polyfill', './src/index.js'],
     vendor: ['react']
-  },
+  }
 };

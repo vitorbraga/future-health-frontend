@@ -1,11 +1,11 @@
-import "./index.css";
+import './index.css';
 
-import { BrowserRouter } from "react-router-dom";
-import { Provider } from "react-redux";
-import React from "react";
-import ReactDOM from "react-dom";
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import Routes from './Routes';
-import store from "./store";
+import store from './store';
 
 // registerServiceWorker();
 
@@ -15,5 +15,5 @@ ReactDOM.render(
       <Routes />
     </BrowserRouter>
   </Provider>,
-  document.getElementById("root")
+  document.getElementById('root')
 );

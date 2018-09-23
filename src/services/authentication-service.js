@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const HOST = 'http://localhost:8080';
+const HOST = process.env.SERVER_HOST;
 
 export const login = ({ email, password }, entity) =>
   axios.post(`${HOST}/authentication/login/${entity}`, {
@@ -10,6 +10,6 @@ export const login = ({ email, password }, entity) =>
 
 export const refreshToken = (refreshToken, entity) =>
   axios
-    .post(`${HOST}/authentication//refresh-token/${entity}`, {
+    .post(`${HOST}/authentication/refresh-token/${entity}`, {
       refreshToken
     });

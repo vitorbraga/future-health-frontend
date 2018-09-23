@@ -1,15 +1,17 @@
 import 'regenerator-runtime/runtime';
 
 import { applyMiddleware, compose, createStore } from 'redux';
+import { authenticationSaga, doctorSaga } from './sagas';
 import { loadState, saveState } from 'utils/localStorage';
 
-import { authenticationSaga } from './sagas';
 import createSagaMiddleware from 'redux-saga';
 import rootReducer from './reducers';
 import throttle from 'lodash/throttle';
 import thunk from 'redux-thunk';
 
-const initialState = {};
+const initialState = {
+  doctor: {},
+};
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -34,5 +36,6 @@ store.subscribe(
 );
 
 sagaMiddleware.run(authenticationSaga);
+sagaMiddleware.run(doctorSaga);
 
 export default store;
