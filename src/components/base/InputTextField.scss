@@ -1,0 +1,33 @@
+.input-text-field {
+  border: none;
+  color: white;
+
+  input {
+    color: white;
+    font-size: 14px;
+  }
+
+  div::before {
+    border-color: white;
+  }
+
+  div::after {
+    border-color: white;
+  }
+
+  div:hover:not(.MuiInput-disabled-24):not(.MuiInput-focused-23):not(.MuiInput-error-26):before {
+    border-bottom: 2px solid rgba(255, 255, 255, 0.87);
+  }
+
+  label {
+    color: white !important;
+    opacity: 0.5;
+    font-size: 14px;
+    border: none;
+  }
+
+  input::placeholder {
+    color: white;
+    border: none;
+  }
+}
