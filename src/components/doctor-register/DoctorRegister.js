@@ -3,15 +3,9 @@ import './DoctorRegister.scss';
 import React, { Component } from 'react';
 
 import Button from '@material-ui/core/Button';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
 import InputSelect from '../base/InputSelect';
 import InputTextField from '../base/InputTextField';
 import { Link } from 'react-router-dom';
-import MenuItem from '@material-ui/core/MenuItem';
-import PropTypes from 'prop-types';
-import Select from '@material-ui/core/Select';
-import TextField from '@material-ui/core/TextField';
 
 class DoctorRegister extends Component {
   static propTypes = {};
@@ -154,6 +148,7 @@ class DoctorRegister extends Component {
             <br />
             <br />
             <br />
+
             <div className="col-lg-12 d-flex justify-content-center field-box">
               <Button
                 className="register-button"

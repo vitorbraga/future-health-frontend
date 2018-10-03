@@ -5,14 +5,10 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  background: linear-gradient(
-    135deg,
-    #1e6399 0%,
-    #7db9e8 100%,
-    #2989d8 100%,
-    #207cca 100%,
-    #2989d8 101%
-  );
+  background-image: url("/static/img/doctor.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 
   .header {
     width: 100%;
@@ -44,12 +40,12 @@
   }
 
   .main {
-    width: 100%;
     margin-top: 60px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    background: rgba(50, 50, 50, 0.8);
 
     .register-form {
       width: 500px;
