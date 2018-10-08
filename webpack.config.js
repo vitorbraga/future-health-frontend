@@ -55,6 +55,7 @@ module.exports = {
       images: path.join(__dirname, './images'),
       middlewares: path.join(__dirname, './src/middlewares'),
       reducers: path.join(__dirname, './src/reducers'),
+      sagas: path.join(__dirname, './src/sagas'),
       selectors: path.join(__dirname, './src/selectors'),
       services: path.join(__dirname, './src/services'),
       style: path.join(__dirname, './style'),

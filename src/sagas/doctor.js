@@ -1,5 +1,6 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, put, select, takeLatest } from 'redux-saga/effects';
 
+import { errorHandling } from 'sagas/error-handling';
 import { getDoctorById } from 'services/doctor-service';
 
 export default function* doctorSaga() {
@@ -9,14 +10,16 @@ export default function* doctorSaga() {
   });
 }
 
-function* getDoctorByIdWorker(accessToken, doctorId) {
+function* getDoctorByIdWorker(doctorId) {
   try {
+    const accessToken = yield select(
+      state => state.authentication.doctor.accessToken
+    );
     const response = yield call(getDoctorById, accessToken, doctorId);
 
     const doctor = response.data;
     yield put({ type: 'GET_DOCTOR_SUCCESS', payload: { doctor } });
   } catch (error) {
-    console.log(error);
-    // yield put({ type: LOGIN_FAILURE, error });
+    yield errorHandling(error, 'doctor');
   }
 }

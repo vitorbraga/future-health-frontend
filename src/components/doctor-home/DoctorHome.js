@@ -7,7 +7,6 @@ import PropTypes from 'prop-types';
 class DoctorHome extends Component {
   static propTypes = {
     doctor: PropTypes.object,
-    accessToken: PropTypes.string.isRequired,
     getDoctor: PropTypes.func
   };
 
@@ -16,7 +15,7 @@ class DoctorHome extends Component {
   }
 
   handleClick = () => {
-    this.props.getDoctor(this.props.accessToken, 1);
+    this.props.getDoctor(1);
   };
 
   render() {
