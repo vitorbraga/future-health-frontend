@@ -10,3 +10,6 @@ export const isLogged = (state, entity) => {
   }
   return false;
 };
+
+export const isAuthenticating = (state, entity) =>
+  state.authentication[entity].isLoading;
