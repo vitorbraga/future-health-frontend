@@ -2,13 +2,13 @@ import {
   AppContainer,
   DoctorHomeContainer,
   DoctorLoginContainer,
+  DoctorRegisterContainer,
   HomeContainer,
   PatientHomeContainer,
   PatientLoginContainer
 } from 'containers';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
-import DoctorRegister from './components/doctor-register/DoctorRegister';
 import React from 'react';
 import { connect } from 'react-redux';
 import { isLogged } from 'selectors';
@@ -49,7 +49,7 @@ const Routes = () => (
       />
       <Route exact path="/login/doctor" component={DoctorLoginContainer} />
       <Route exact path="/login/patient" component={PatientLoginContainer} />
-      <Route exact path="/register/doctor" component={DoctorRegister} />
+      <Route exact path="/register/doctor" component={DoctorRegisterContainer} />
     </Switch>
   </div>
 );

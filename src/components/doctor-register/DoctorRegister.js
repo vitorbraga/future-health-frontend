@@ -6,9 +6,13 @@ import Button from '@material-ui/core/Button';
 import InputSelect from '../base/InputSelect';
 import InputTextField from '../base/InputTextField';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { isEmailValid } from 'utils/validation-utils';
 
 class DoctorRegister extends Component {
-  static propTypes = {};
+  static propTypes = {
+    register: PropTypes.func,
+  };
 
   constructor(props, context) {
     super(props);
@@ -26,9 +30,40 @@ class DoctorRegister extends Component {
     };
   }
 
+  validateForm = () => {
+
+    const form = this.state;
+    if (Object.keys(form).filter(k => form[k] === '').length > 0) {
+      return false;
+    }
+
+    if (form.email !== form.emailConfirm) {
+      return false;
+    }
+
+    if (form.password !== form.passwordConfirm) {
+      return false;
+    }
+
+    if (!isEmailValid(form.email) || !isEmailValid(form.emailConfirm)) {
+      return false;
+    }
+
+    return true;
+  }
+
   handleInputChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
+
+  handleRegister = () => {
+    if (!this.validateForm()) {
+      alert('errr')
+      return;
+    }
+
+    this.props.register(this.state);
+  }
 
   render() {
     const genderItems = [{ id: 'F', label: 'Female'}, { id: 'M', label: 'Male'}, { id: 'O', label: 'Other'}];
@@ -112,7 +147,7 @@ class DoctorRegister extends Component {
                   <InputTextField
                     label="EMAIL ADDRESS"
                     name="email"
-                    type="email"
+                    type="text"
                     onChange={this.handleInputChange}
                   />
                 </div>
@@ -120,7 +155,7 @@ class DoctorRegister extends Component {
                   <InputTextField
                     label="CONFIRM EMAIL ADDRESS"
                     name="emailConfirm"
-                    type="email"
+                    type="text"
                     onChange={this.handleInputChange}
                   />
                 </div>
@@ -153,7 +188,7 @@ class DoctorRegister extends Component {
               <Button
                 className="register-button"
                 variant="contained"
-                onClick={() => this.handleLogin()}
+                onClick={() => this.handleRegister()}
               >
                 Submit
               </Button>

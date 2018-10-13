@@ -8,3 +8,6 @@ const getHeaders = accessToken => ({
 
 export const getDoctorById = (accessToken, doctorId) =>
   axios.get(`${HOST}/doctors/${doctorId}`, getHeaders(accessToken));
+
+export const registerDoctor = doctor =>
+  axios.post(`${HOST}/doctors/register`, doctor);

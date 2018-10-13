@@ -1,13 +1,19 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { getDoctorById, registerDoctor } from 'services/doctor-service';
 
 import { errorHandling } from 'sagas/error-handling';
-import { getDoctorById } from 'services/doctor-service';
 
 export default function* doctorSaga() {
-  yield takeLatest('GET_DOCTOR_BY_ID_REQUEST', action => {
-    const { accessToken, doctorId } = action.payload;
-    return getDoctorByIdWorker(accessToken, doctorId);
-  });
+  yield [
+    takeLatest('GET_DOCTOR_BY_ID_REQUEST', action => {
+      const { accessToken, doctorId } = action.payload;
+      return getDoctorByIdWorker(accessToken, doctorId);
+    }),
+    yield takeLatest('DOCTOR_REGISTER_REQUEST', action => {
+      const { doctor } = action.payload;
+      return registerDoctorWorker(doctor);
+    })
+  ];
 }
 
 function* getDoctorByIdWorker(doctorId) {
@@ -22,4 +28,8 @@ function* getDoctorByIdWorker(doctorId) {
   } catch (error) {
     yield errorHandling(error, 'doctor');
   }
+}
+
+function* registerDoctorWorker(doctor) {
+  const response = yield call(registerDoctor, doctor);
 }

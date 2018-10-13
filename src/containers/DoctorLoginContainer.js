@@ -8,7 +8,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  authenticate: (credentials) => dispatch(login(credentials, 'doctor')),
+  authenticate: credentials => dispatch(login(credentials, 'doctor')),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(DoctorLogin)
