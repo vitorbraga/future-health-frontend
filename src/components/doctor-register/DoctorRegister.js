@@ -3,70 +3,99 @@ import './DoctorRegister.scss';
 import React, { Component } from 'react';
 
 import Button from '@material-ui/core/Button';
-import InputSelect from '../base/InputSelect';
-import InputTextField from '../base/InputTextField';
+import InputMaskedField from 'components/base/input/InputMaskedField';
+import InputSelect from 'components/base/input/InputSelect';
+import InputTextField from 'components/base/input/InputTextField';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { isEmailValid } from 'utils/validation-utils';
 
 class DoctorRegister extends Component {
   static propTypes = {
-    register: PropTypes.func,
+    register: PropTypes.func
   };
 
   constructor(props, context) {
     super(props);
     this.state = {
-      firstName: '',
-      lastName: '',
-      registry: '',
-      document: '',
-      birthday: '',
-      gender: '',
-      email: '',
-      emailConfirm: '',
-      password: '',
-      passwordConfirm: ''
+      form: {
+        firstName: '',
+        lastName: '',
+        registry: '',
+        document: '',
+        birthday: '',
+        gender: '',
+        email: '',
+        emailConfirm: '',
+        password: '',
+        passwordConfirm: ''
+      },
+      errors: {
+        firstName: false,
+        lastName: false,
+        registry: false,
+        document: false,
+        birthday: false,
+        gender: false,
+        email: false,
+        emailConfirm: false,
+        password: false,
+        passwordConfirm: false
+      }
     };
   }
 
   validateForm = () => {
-
-    const form = this.state;
-    if (Object.keys(form).filter(k => form[k] === '').length > 0) {
-      return false;
+    const form = this.state.form;
+    const emptyFields = Object.keys(form).filter(k => form[k] === '');
+    if (emptyFields.length > 0) {
+      return emptyFields;
     }
 
     if (form.email !== form.emailConfirm) {
-      return false;
+      return ['email', 'emailConfirm'];
     }
 
     if (form.password !== form.passwordConfirm) {
-      return false;
+      return ['password', 'passwordConfirm'];
     }
 
     if (!isEmailValid(form.email) || !isEmailValid(form.emailConfirm)) {
-      return false;
+      return ['email'];
     }
 
-    return true;
-  }
+    return [];
+  };
+
+  isFieldWithError = fieldName => {
+    return this.state.errors[fieldName] && this.state.form[fieldName] === '';
+  };
 
   handleInputChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({
+      form: { ...this.state.form, [e.target.name]: e.target.value }
+    });
   };
 
   handleRegister = () => {
-    if (!this.validateForm()) {
-      alert('errr')
+    const valid = this.validateForm();
+    if (valid.length > 0) {
+      const errors = {};
+      valid.forEach(v => {
+        errors[v] = true;
+      });
+
+      this.setState({ errors });
       return;
     }
-
-    this.props.register(this.state);
-  }
+  };
 
   render() {
-    const genderItems = [{ id: 'F', label: 'Female'}, { id: 'M', label: 'Male'}, { id: 'O', label: 'Other'}];
+    const genderItems = [
+      { id: 'F', label: 'Female' },
+      { id: 'M', label: 'Male' },
+      { id: 'O', label: 'Other' }
+    ];
 
     return (
       <div className="doctor-register">
@@ -86,6 +115,7 @@ class DoctorRegister extends Component {
               <div className="form-box d-flex flex-row">
                 <div className="col-lg-6 d-flex flex-column">
                   <InputTextField
+                    error={this.isFieldWithError('firstName')}
                     label="FIRST NAME"
                     name="firstName"
                     type="text"
@@ -94,6 +124,7 @@ class DoctorRegister extends Component {
                 </div>
                 <div className="col-lg-6 d-flex flex-column">
                   <InputTextField
+                    error={this.isFieldWithError('lastName')}
                     label="LAST NAME"
                     name="lastName"
                     type="text"
@@ -104,6 +135,7 @@ class DoctorRegister extends Component {
               <div className="form-box d-flex flex-row">
                 <div className="col-lg-6 d-flex flex-column field-box">
                   <InputTextField
+                    error={this.isFieldWithError('registry')}
                     label="REGISTRY (CRM)"
                     name="registry"
                     type="text"
@@ -111,9 +143,11 @@ class DoctorRegister extends Component {
                   />
                 </div>
                 <div className="col-lg-6 d-flex flex-column field-box">
-                  <InputTextField
-                    label="CPF"
+                  <InputMaskedField
+                    error={this.isFieldWithError('document')}
+                    label="DOCUMENT (CPF)"
                     name="document"
+                    mask="999.999.999-99"
                     type="text"
                     onChange={this.handleInputChange}
                   />
@@ -121,18 +155,21 @@ class DoctorRegister extends Component {
               </div>
               <div className="form-box d-flex flex-row">
                 <div className="col-lg-6 d-flex flex-column field-box">
-                  <InputTextField
-                    label="BIRTHDAY"
+                  <InputMaskedField
+                    error={this.isFieldWithError('birthday')}
+                    label="BIRTHDAY (dd/mm/yyyy)"
                     name="birthday"
+                    mask="99/99/9999"
                     type="text"
                     onChange={this.handleInputChange}
                   />
                 </div>
                 <div className="col-lg-6 d-flex flex-column field-box">
                   <InputSelect
+                    error={this.isFieldWithError('gender')}
                     label="GENDER"
                     name="gender"
-                    value={this.state.gender}
+                    value={this.state.form.gender}
                     items={genderItems}
                     onChange={this.handleInputChange}
                   />
@@ -145,6 +182,7 @@ class DoctorRegister extends Component {
               <div className="form-box d-flex flex-row">
                 <div className="col-lg-6 d-flex flex-column field-box">
                   <InputTextField
+                    error={this.isFieldWithError('email')}
                     label="EMAIL ADDRESS"
                     name="email"
                     type="text"
@@ -153,6 +191,7 @@ class DoctorRegister extends Component {
                 </div>
                 <div className="col-lg-6 d-flex flex-column field-box">
                   <InputTextField
+                    error={this.isFieldWithError('emailConfirm')}
                     label="CONFIRM EMAIL ADDRESS"
                     name="emailConfirm"
                     type="text"
@@ -163,6 +202,7 @@ class DoctorRegister extends Component {
               <div className="form-box d-flex flex-row">
                 <div className="col-lg-6 d-flex flex-column field-box">
                   <InputTextField
+                    error={this.isFieldWithError('password')}
                     label="PASSWORD"
                     name="password"
                     type="password"
@@ -171,6 +211,7 @@ class DoctorRegister extends Component {
                 </div>
                 <div className="col-lg-6 d-flex flex-column field-box">
                   <InputTextField
+                    error={this.isFieldWithError('passwordConfirm')}
                     label="CONFIRM PASSWORD"
                     name="passwordConfirm"
                     type="password"

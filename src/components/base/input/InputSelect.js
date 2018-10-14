@@ -6,8 +6,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import React from 'react';
 import Select from '@material-ui/core/Select';
 
-const InputSelect = ({ name, label, items, onChange, customClass, value }) => (
-  <FormControl className="input-select">
+const InputSelect = ({ error, name, label, items, onChange, customClass, value }) => (
+  <FormControl className="input-select" error={error}>
     <InputLabel htmlFor={`${name}-field`}>{label}</InputLabel>
     <Select
       className={`select-field ${customClass}`}

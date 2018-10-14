@@ -3,8 +3,9 @@ import './InputTextField.scss';
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 
-const InputTextField = ({ name, label, onChange, customClass, type }) => (
+const InputTextField = ({ error, name, label, onChange, customClass, type }) => (
   <TextField
+    error={error}
     className={`input-text-field ${customClass}`}
     label={label}
     name={name}
